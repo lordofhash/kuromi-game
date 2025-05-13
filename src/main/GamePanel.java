@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import entity.Player;
+import tile.TileManager;
 
 @usage(usager = "This is an extension of JPanel" , classnumber = 2 )
 public class GamePanel extends JPanel implements Runnable{
@@ -21,10 +22,10 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public final int tileSize = originalTileSize * scale; //48 * 48
 	//size displayed on the game screen
-	final int maxScreenCol = 16;
-	final int maxScreenRow = 12;
-	final int screenWidth = tileSize * maxScreenCol;
-	final int screenHeight = tileSize * maxScreenRow;
+	public final int maxScreenCol = 16;
+	public final int maxScreenRow = 12;
+	public final int screenWidth = tileSize * maxScreenCol;
+	public final int screenHeight = tileSize * maxScreenRow;
 	
 	
 	//FPS
@@ -36,13 +37,14 @@ public class GamePanel extends JPanel implements Runnable{
 	KeyHandler keyH = new KeyHandler();
 	Thread gameThread;
 	Player player = new Player(this, keyH);
+	Player player1 = new Player(this,keyH);
+	
+	TileManager tileM = new TileManager(this);
 	
 	
-	
-	
-	int playerX =100;
-	int playerY =100;
-	int playerSpeed = 4;
+//	int playerX =100;
+//	int playerY =100;
+//	int playerSpeed = 4;
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -171,7 +173,14 @@ public class GamePanel extends JPanel implements Runnable{
 		super.paintComponent(g);
 		
 		Graphics2D g2 = (Graphics2D)g;
+		
+		//tiles are drawn first so draw method of tile is called first. It's like a layer.
+		tileM.draw(g2);
+		
 		player.draw(g2);
+		
+		
+		
 //		
 //		g2.setColor(Color.white);
 //		g2.fillRect(playerX,playerY,tileSize,tileSize);
