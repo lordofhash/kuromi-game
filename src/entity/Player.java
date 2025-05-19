@@ -63,7 +63,7 @@ public class Player extends entity{
 	}
 	
 	public void update() {
-		if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true ) {
+		if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true || keyH.rPressed == true ) {
 		if(keyH.upPressed == true) {
 			direction = "up";
 			//y-=speed;
@@ -84,6 +84,11 @@ public class Player extends entity{
 			direction = "right";
 			//x+=speed;
 			worldX += speed;
+		}
+		else if(keyH.rPressed == true) {
+			direction = "right";
+			worldX = gp.tileSize * 23;
+			worldY = gp.tileSize * 21;
 		}
 		
 		spriteCounter++;
