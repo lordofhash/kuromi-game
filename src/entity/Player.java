@@ -1,7 +1,8 @@
 package entity;
 
-import java.awt.Color;
+//import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -10,7 +11,7 @@ import javax.imageio.ImageIO;
 import main.GamePanel;
 import main.KeyHandler;
 
-public class Player extends entity{
+public class Player extends Entity{
 	
 	GamePanel gp;
 	KeyHandler keyH;
@@ -26,6 +27,12 @@ public class Player extends entity{
 		screenY = gp.screenHeight/2 - (gp.tileSize/2);
 		//these coordinates are top left corner coordinates.
 		//that is why we subtract gp.tileSize/2
+		
+		solidArea = new Rectangle();
+		solidArea.x =8;
+		solidArea.y =16;
+		solidArea.width= 32;
+		solidArea.height=32;
 		
 		setDefaultValues();
 		getPlayerImage();
@@ -67,28 +74,47 @@ public class Player extends entity{
 		if(keyH.upPressed == true) {
 			direction = "up";
 			//y-=speed;
-			worldY -= speed;
-			
 		}
 		else if(keyH.downPressed == true) {
 			direction = "down";
 			//y+=speed;
-			worldY += speed;
 		}
 		else if(keyH.leftPressed == true) {
 			direction = "left";
 			//x-=speed;
-			worldX -= speed;
 		}
 		else if(keyH.rightPressed == true) {
 			direction = "right";
 			//x+=speed;
-			worldX += speed;
 		}
 		else if(keyH.rPressed == true) {
-			direction = "right";
+			//Reset button
+			direction = "down";
 			worldX = gp.tileSize * 23;
 			worldY = gp.tileSize * 21;
+		}
+		
+		//Check tile collision 
+		collisionOn = false;
+		gp.cChecker.checkTile(this);
+		
+		//if collision  is false, player can move
+		if(collisionOn == false) {
+			
+			switch(direction){
+			case "up":
+				worldY -= speed;
+				break;
+			case "down":
+				worldY += speed;
+				break;
+			case "left":
+				worldX -= speed;
+				break;
+			case "right":
+				worldX += speed;
+				break;
+			}
 		}
 		
 		spriteCounter++;

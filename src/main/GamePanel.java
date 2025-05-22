@@ -47,6 +47,7 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	TileManager tileM = new TileManager(this);
 	
+	public CollisionChecker cChecker = new CollisionChecker(this);
 	
 //	int playerX =100;
 //	int playerY =100;

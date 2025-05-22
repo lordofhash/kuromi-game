@@ -13,7 +13,7 @@ public class Main {
 		//This lets the window properly close when the user clicks 
 		//on x 
 		window.setResizable(false);
-		window.setTitle("\t\t\t\t\t\t\t\t    クロミ(Kuro-mi) game                                                    Made by Shiven chan");
+		window.setTitle("自分自身を見つける                                Find Yourself: An adventure game                 { Developed by Shiven Vasan }");
 		  
 		GamePanel gamePanel = new GamePanel();
 		window.add(gamePanel);
